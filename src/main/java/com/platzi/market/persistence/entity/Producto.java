@@ -10,6 +10,10 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto", nullable = false)
     private Integer id;
+
+    @Column(name = "id_categoria")
+    private int idCategoria;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
