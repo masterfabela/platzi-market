@@ -11,7 +11,7 @@ public class Producto {
     @Column(name = "id_producto", nullable = false)
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_categoria")
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
 
     @Column(name = "nombre", length = 45)

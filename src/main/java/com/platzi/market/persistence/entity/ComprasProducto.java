@@ -11,12 +11,12 @@ public class ComprasProducto {
 
     @MapsId("idCompra")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_compra", nullable = false)
+    @JoinColumn(name = "id_compra", nullable = false, insertable = false, updatable = false)
     private Compra compra;
 
     @MapsId("idProducto")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_producto", nullable = false)
+    @JoinColumn(name = "id_producto", nullable = false, insertable = false, updatable = false)
     private Producto producto;
 
     @Column(name = "cantidad")

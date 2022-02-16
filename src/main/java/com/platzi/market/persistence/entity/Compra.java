@@ -11,8 +11,8 @@ public class Compra {
     @Column(name = "id_compra", nullable = false)
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
-    private Cliente idCliente;
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Cliente cliente;
 
     @Column(name = "fecha")
     private LocalDateTime fecha;
@@ -58,12 +58,12 @@ public class Compra {
         this.fecha = fecha;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Integer getId() {

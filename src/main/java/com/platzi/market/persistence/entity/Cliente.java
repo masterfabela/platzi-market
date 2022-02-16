@@ -27,7 +27,7 @@ public class Cliente {
     @Column(name = "correo_electronico", length = 70)
     private String correoElectronico;
 
-    @OneToMany(mappedBy = "idCliente")
+    @OneToMany(mappedBy = "cliente")
     private Set<Compra> compras = new LinkedHashSet<>();
 
     public Set<Compra> getCompras() {
