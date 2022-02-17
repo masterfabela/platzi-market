@@ -32,7 +32,7 @@ public class Compra {
     @Column(name = "estado", length = 1)
     private String estado;
 
-    @OneToMany(mappedBy = "compra")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private Set<ComprasProducto> productos = new LinkedHashSet<>();
 
     public Set<ComprasProducto> getProductos() {
