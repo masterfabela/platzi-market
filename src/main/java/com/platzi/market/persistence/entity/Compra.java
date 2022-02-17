@@ -2,6 +2,8 @@ package com.platzi.market.persistence.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "compras")
@@ -29,6 +31,17 @@ public class Compra {
 
     @Column(name = "estado", length = 1)
     private String estado;
+
+    @OneToMany(mappedBy = "compra")
+    private Set<ComprasProducto> productos = new LinkedHashSet<>();
+
+    public Set<ComprasProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<ComprasProducto> productos) {
+        this.productos = productos;
+    }
 
     public String getEstado() {
         return estado;
