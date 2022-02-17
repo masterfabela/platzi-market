@@ -50,4 +50,9 @@ public class ProductoRepository implements ProductRepository {
     public void delete(int productId){
         productoCrudRepository.deleteById(productId);
     }
+
+    @Override
+    public void delete(Product product) {
+        delete(product.getId());
+    }
 }
