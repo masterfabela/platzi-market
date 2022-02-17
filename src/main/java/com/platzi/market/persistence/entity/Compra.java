@@ -10,6 +10,10 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra", nullable = false)
     private Integer id;
+
+    @Column(name = "id_cliente")
+    private String idCliente;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
@@ -74,4 +78,11 @@ public class Compra {
         this.id = id;
     }
 
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
 }
