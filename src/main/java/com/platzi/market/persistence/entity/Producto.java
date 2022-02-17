@@ -33,6 +33,14 @@ public class Producto {
     @Column(name = "estado")
     private Boolean estado;
 
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
     public Boolean getEstado() {
         return estado;
     }
