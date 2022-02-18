@@ -10,14 +10,15 @@ public class ComprasProducto {
     private ComprasProductoId id;
 
     @MapsId("idCompra")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_compra", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_compra", nullable = false)
     private Compra compra;
 
     @MapsId("idProducto")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_producto", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
+
 
     @Column(name = "cantidad")
     private Integer cantidad;
@@ -65,6 +66,7 @@ public class ComprasProducto {
     }
 
     public void setCompra(Compra compra) {
+        this.id.setIdCompra(compra.getId());
         this.compra = compra;
     }
 

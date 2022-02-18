@@ -1,8 +1,11 @@
 package com.platzi.market.persistence;
 
 import com.platzi.market.domain.Purchase;
+import com.platzi.market.domain.repository.ProductRepository;
 import com.platzi.market.domain.repository.PurchaseRepository;
 import com.platzi.market.persistence.crud.CompraCrudRepository;
+import com.platzi.market.persistence.crud.ComprasProductoCrudRepository;
+import com.platzi.market.persistence.crud.ProductoCrudRepository;
 import com.platzi.market.persistence.entity.Compra;
 import com.platzi.market.persistence.mapper.PurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,10 @@ import java.util.Optional;
 public class CompraRepository implements PurchaseRepository {
     @Autowired
     private CompraCrudRepository compraCrudRepository;
+    @Autowired
+    private ProductoCrudRepository productoCrudRepository;
+    @Autowired
+    private ComprasProductoCrudRepository comprasProductoCrudRepository;
     @Autowired
     private PurchaseMapper mapper;
 
@@ -31,7 +38,23 @@ public class CompraRepository implements PurchaseRepository {
     @Override
     public Purchase save(Purchase purchase) {
         Compra compra = mapper.toCompra(purchase);
-        compra.getProductos().forEach(comprasProducto -> comprasProducto.setCompra(compra));
+        compra.getProductos().forEach(comprasProducto -> {
+            comprasProducto.setCompra(compra);
+            productoCrudRepository.findById(comprasProducto.getId().getIdProducto())
+                    .ifPresent(comprasProducto::setProducto);
+        });
         return mapper.toPurchase(compraCrudRepository.save(compra));
+    }
+
+    @Override
+    public boolean delete(int purchaseId) {
+        return compraCrudRepository.findById(purchaseId).map(compra -> {
+            comprasProductoCrudRepository.findByCompra(compra)
+                    .ifPresent(comprasProductos ->
+                            comprasProductoCrudRepository.deleteAll(comprasProductos)
+                    );
+            compraCrudRepository.delete(compra);
+            return true;
+        }).orElse(false);
     }
 }
